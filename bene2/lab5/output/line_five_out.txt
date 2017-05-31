@@ -1,0 +1,350 @@
+0 add entry: host n1 dv table: {"1": {"next_hop": null, "dist": 0}}
+0 add entry: host n2 dv table: {"2": {"next_hop": null, "dist": 0}}
+0 add entry: host n2 dv table: {"3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}}
+0 add entry: host n3 dv table: {"4": {"next_hop": null, "dist": 0}}
+0 add entry: host n3 dv table: {"5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}}
+0 add entry: host n4 dv table: {"6": {"next_hop": null, "dist": 0}}
+0 add entry: host n4 dv table: {"7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}
+0 add entry: host n5 dv table: {"8": {"next_hop": null, "dist": 0}}
+0 n1 forwarding broadcast packet to n2
+0 n2 forwarding broadcast packet to n1
+0 n2 forwarding broadcast packet to n3
+0 n3 forwarding broadcast packet to n2
+0 n3 forwarding broadcast packet to n4
+0 n4 forwarding broadcast packet to n3
+0 n4 forwarding broadcast packet to n5
+0 n5 forwarding broadcast packet to n4
+0.001512 n2 received packet
+0.001512 host n2 received dv message: {"from": "n1", "dv_table": {"1": {"next_hop": null, "dist": 0}}}
+0.001512 add entry: host n2 dv table: {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}}
+0.001512 host n2 update forwarding table (dest: 1, next hop: n1)
+0.001512 n2 dropping packet due to TTL expired
+0.001512 n4 received packet
+0.001512 host n4 received dv message: {"from": "n5", "dv_table": {"8": {"next_hop": null, "dist": 0}}}
+0.001512 add entry: host n4 dv table: {"8": {"next_hop": "n5", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}
+0.001512 host n4 update forwarding table (dest: 8, next hop: n5)
+0.001512 n4 dropping packet due to TTL expired
+0.001512 n2 forwarding broadcast packet to n1
+0.001512 n2 forwarding broadcast packet to n3
+0.001512 n4 forwarding broadcast packet to n3
+0.001512 n4 forwarding broadcast packet to n5
+0.0018 n1 received packet
+0.0018 host n1 received dv message: {"from": "n2", "dv_table": {"3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}}}
+0.0018 add entry: host n1 dv table: {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}}
+0.0018 host n1 update forwarding table (dest: 3, next hop: n2)
+0.0018 add entry: host n1 dv table: {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}}
+0.0018 host n1 update forwarding table (dest: 2, next hop: n2)
+0.0018 n1 dropping packet due to TTL expired
+0.0018 n3 received packet
+0.0018 host n3 received dv message: {"from": "n2", "dv_table": {"3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}}}
+0.0018 add entry: host n3 dv table: {"3": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}}
+0.0018 host n3 update forwarding table (dest: 3, next hop: n2)
+0.0018 add entry: host n3 dv table: {"3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}}
+0.0018 host n3 update forwarding table (dest: 2, next hop: n2)
+0.0018 n3 dropping packet due to TTL expired
+0.0018 n2 received packet
+0.0018 host n2 received dv message: {"from": "n3", "dv_table": {"5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}}}
+0.0018 add entry: host n2 dv table: {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}}
+0.0018 host n2 update forwarding table (dest: 5, next hop: n3)
+0.0018 add entry: host n2 dv table: {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}}
+0.0018 host n2 update forwarding table (dest: 4, next hop: n3)
+0.0018 n2 dropping packet due to TTL expired
+0.0018 n4 received packet
+0.0018 host n4 received dv message: {"from": "n3", "dv_table": {"5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}}}
+0.0018 add entry: host n4 dv table: {"8": {"next_hop": "n5", "dist": 1}, "5": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}
+0.0018 host n4 update forwarding table (dest: 5, next hop: n3)
+0.0018 add entry: host n4 dv table: {"8": {"next_hop": "n5", "dist": 1}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}
+0.0018 host n4 update forwarding table (dest: 4, next hop: n3)
+0.0018 n4 dropping packet due to TTL expired
+0.0018 n3 received packet
+0.0018 host n3 received dv message: {"from": "n4", "dv_table": {"7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}}
+0.0018 add entry: host n3 dv table: {"3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}}
+0.0018 host n3 update forwarding table (dest: 7, next hop: n4)
+0.0018 add entry: host n3 dv table: {"3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}
+0.0018 host n3 update forwarding table (dest: 6, next hop: n4)
+0.0018 n3 dropping packet due to TTL expired
+0.0018 n5 received packet
+0.0018 host n5 received dv message: {"from": "n4", "dv_table": {"7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}}
+0.0018 add entry: host n5 dv table: {"8": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}}
+0.0018 host n5 update forwarding table (dest: 7, next hop: n4)
+0.0018 add entry: host n5 dv table: {"8": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}
+0.0018 host n5 update forwarding table (dest: 6, next hop: n4)
+0.0018 n5 dropping packet due to TTL expired
+0.0018 n1 forwarding broadcast packet to n2
+0.0018 n1 forwarding broadcast packet to n2
+0.0018 n3 forwarding broadcast packet to n2
+0.0018 n3 forwarding broadcast packet to n4
+0.0018 n3 forwarding broadcast packet to n2
+0.0018 n3 forwarding broadcast packet to n4
+0.0018 n2 forwarding broadcast packet to n1
+0.0018 n2 forwarding broadcast packet to n3
+0.0018 n2 forwarding broadcast packet to n1
+0.0018 n2 forwarding broadcast packet to n3
+0.0018 n4 forwarding broadcast packet to n3
+0.0018 n4 forwarding broadcast packet to n5
+0.0018 n4 forwarding broadcast packet to n3
+0.0018 n4 forwarding broadcast packet to n5
+0.0018 n3 forwarding broadcast packet to n2
+0.0018 n3 forwarding broadcast packet to n4
+0.0018 n3 forwarding broadcast packet to n2
+0.0018 n3 forwarding broadcast packet to n4
+0.0018 n5 forwarding broadcast packet to n4
+0.0018 n5 forwarding broadcast packet to n4
+0.0036 n1 received packet
+0.0036 host n1 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}}}
+0.0036 n1 dropping packet due to TTL expired
+0.0036 n3 received packet
+0.0036 host n3 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}}}
+0.0036 add entry: host n3 dv table: {"1": {"next_hop": "n2", "dist": 2}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}
+0.0036 host n3 update forwarding table (dest: 1, next hop: n2)
+0.0036 n3 dropping packet due to TTL expired
+0.0036 n3 received packet
+0.0036 host n3 received dv message: {"from": "n4", "dv_table": {"8": {"next_hop": "n5", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}}
+0.0036 add entry: host n3 dv table: {"1": {"next_hop": "n2", "dist": 2}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": "n4", "dist": 2}}
+0.0036 host n3 update forwarding table (dest: 8, next hop: n4)
+0.0036 n3 dropping packet due to TTL expired
+0.0036 n5 received packet
+0.0036 host n5 received dv message: {"from": "n4", "dv_table": {"8": {"next_hop": "n5", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}}
+0.0036 n5 dropping packet due to TTL expired
+0.0036 n2 received packet
+0.0036 host n2 received dv message: {"from": "n1", "dv_table": {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}}}
+0.0036 n2 dropping packet due to TTL expired
+0.0036 n4 received packet
+0.0036 host n4 received dv message: {"from": "n5", "dv_table": {"8": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}}}
+0.0036 n4 dropping packet due to TTL expired
+0.0036 n3 forwarding broadcast packet to n2
+0.0036 n3 forwarding broadcast packet to n4
+0.0036 n3 forwarding broadcast packet to n2
+0.0036 n3 forwarding broadcast packet to n4
+0.003888 n2 received packet
+0.003888 host n2 received dv message: {"from": "n3", "dv_table": {"3": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}}}
+0.003888 n2 dropping packet due to TTL expired
+0.003888 n4 received packet
+0.003888 host n4 received dv message: {"from": "n3", "dv_table": {"3": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}}}
+0.003888 add entry: host n4 dv table: {"3": {"next_hop": "n3", "dist": 2}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}, "8": {"next_hop": "n5", "dist": 1}}
+0.003888 host n4 update forwarding table (dest: 3, next hop: n3)
+0.003888 n4 dropping packet due to TTL expired
+0.003888 n4 forwarding broadcast packet to n3
+0.003888 n4 forwarding broadcast packet to n5
+0.004688 n2 received packet
+0.004688 host n2 received dv message: {"from": "n1", "dv_table": {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}}}
+0.004688 n2 dropping packet due to TTL expired
+0.004688 n4 received packet
+0.004688 host n4 received dv message: {"from": "n5", "dv_table": {"8": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}}
+0.004688 n4 dropping packet due to TTL expired
+0.004976 n1 received packet
+0.004976 host n1 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}}}
+0.004976 add entry: host n1 dv table: {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": "n2", "dist": 2}}
+0.004976 host n1 update forwarding table (dest: 5, next hop: n2)
+0.004976 n1 dropping packet due to TTL expired
+0.004976 n3 received packet
+0.004976 host n3 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}}}
+0.004976 n3 dropping packet due to TTL expired
+0.004976 n3 received packet
+0.004976 host n3 received dv message: {"from": "n4", "dv_table": {"8": {"next_hop": "n5", "dist": 1}, "5": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}}
+0.004976 n3 dropping packet due to TTL expired
+0.004976 n5 received packet
+0.004976 host n5 received dv message: {"from": "n4", "dv_table": {"8": {"next_hop": "n5", "dist": 1}, "5": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}}
+0.004976 add entry: host n5 dv table: {"8": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n4", "dist": 2}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}
+0.004976 host n5 update forwarding table (dest: 5, next hop: n4)
+0.004976 n5 dropping packet due to TTL expired
+0.004976 n1 forwarding broadcast packet to n2
+0.004976 n5 forwarding broadcast packet to n4
+0.005264 n2 received packet
+0.005264 host n2 received dv message: {"from": "n3", "dv_table": {"3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}}}
+0.005264 n2 dropping packet due to TTL expired
+0.005264 n4 received packet
+0.005264 host n4 received dv message: {"from": "n3", "dv_table": {"3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}}}
+0.005264 add entry: host n4 dv table: {"3": {"next_hop": "n3", "dist": 2}, "2": {"next_hop": "n3", "dist": 2}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}, "8": {"next_hop": "n5", "dist": 1}}
+0.005264 host n4 update forwarding table (dest: 2, next hop: n3)
+0.005264 n4 dropping packet due to TTL expired
+0.005264 n4 forwarding broadcast packet to n3
+0.005264 n4 forwarding broadcast packet to n5
+0.00664 n1 received packet
+0.00664 host n1 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}}}
+0.00664 add entry: host n1 dv table: {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": "n2", "dist": 2}, "4": {"next_hop": "n2", "dist": 2}}
+0.00664 host n1 update forwarding table (dest: 4, next hop: n2)
+0.00664 n1 dropping packet due to TTL expired
+0.00664 n3 received packet
+0.00664 host n3 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}}}
+0.00664 n3 dropping packet due to TTL expired
+0.00664 n3 received packet
+0.00664 host n3 received dv message: {"from": "n4", "dv_table": {"8": {"next_hop": "n5", "dist": 1}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}}
+0.00664 n3 dropping packet due to TTL expired
+0.00664 n5 received packet
+0.00664 host n5 received dv message: {"from": "n4", "dv_table": {"8": {"next_hop": "n5", "dist": 1}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}}}
+0.00664 add entry: host n5 dv table: {"8": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n4", "dist": 2}, "4": {"next_hop": "n4", "dist": 2}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}
+0.00664 host n5 update forwarding table (dest: 4, next hop: n4)
+0.00664 n5 dropping packet due to TTL expired
+0.00664 n1 forwarding broadcast packet to n2
+0.00664 n5 forwarding broadcast packet to n4
+0.006928 n2 received packet
+0.006928 host n2 received dv message: {"from": "n3", "dv_table": {"3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}}}
+0.006928 add entry: host n2 dv table: {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": "n3", "dist": 2}}
+0.006928 host n2 update forwarding table (dest: 7, next hop: n3)
+0.006928 n2 dropping packet due to TTL expired
+0.006928 n4 received packet
+0.006928 host n4 received dv message: {"from": "n3", "dv_table": {"3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}}}
+0.006928 n4 dropping packet due to TTL expired
+0.006928 n2 forwarding broadcast packet to n1
+0.006928 n2 forwarding broadcast packet to n3
+0.007352 n2 received packet
+0.007352 host n2 received dv message: {"from": "n1", "dv_table": {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": "n2", "dist": 2}}}
+0.007352 n2 dropping packet due to TTL expired
+0.007352 n4 received packet
+0.007352 host n4 received dv message: {"from": "n5", "dv_table": {"8": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n4", "dist": 2}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}}
+0.007352 n4 dropping packet due to TTL expired
+0.008592 n3 received packet
+0.008592 host n3 received dv message: {"from": "n4", "dv_table": {"3": {"next_hop": "n3", "dist": 2}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}, "8": {"next_hop": "n5", "dist": 1}}}
+0.008592 n3 dropping packet due to TTL expired
+0.008592 n5 received packet
+0.008592 host n5 received dv message: {"from": "n4", "dv_table": {"3": {"next_hop": "n3", "dist": 2}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}, "8": {"next_hop": "n5", "dist": 1}}}
+0.008592 add entry: host n5 dv table: {"3": {"next_hop": "n4", "dist": 3}, "5": {"next_hop": "n4", "dist": 2}, "4": {"next_hop": "n4", "dist": 2}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": null, "dist": 0}}
+0.008592 host n5 update forwarding table (dest: 3, next hop: n4)
+0.008592 n5 dropping packet due to TTL expired
+0.008592 n5 forwarding broadcast packet to n4
+0.00888 n2 received packet
+0.00888 host n2 received dv message: {"from": "n3", "dv_table": {"3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}}
+0.00888 add entry: host n2 dv table: {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": "n3", "dist": 2}, "6": {"next_hop": "n3", "dist": 2}}
+0.00888 host n2 update forwarding table (dest: 6, next hop: n3)
+0.00888 n2 dropping packet due to TTL expired
+0.00888 n4 received packet
+0.00888 host n4 received dv message: {"from": "n3", "dv_table": {"3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}}
+0.00888 n4 dropping packet due to TTL expired
+0.00888 n2 forwarding broadcast packet to n1
+0.00888 n2 forwarding broadcast packet to n3
+0.009304 n2 received packet
+0.009304 host n2 received dv message: {"from": "n1", "dv_table": {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": "n2", "dist": 2}, "4": {"next_hop": "n2", "dist": 2}}}
+0.009304 n2 dropping packet due to TTL expired
+0.009304 n4 received packet
+0.009304 host n4 received dv message: {"from": "n5", "dv_table": {"8": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n4", "dist": 2}, "4": {"next_hop": "n4", "dist": 2}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}}
+0.009304 n4 dropping packet due to TTL expired
+0.00988 n1 received packet
+0.00988 host n1 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": "n3", "dist": 2}}}
+0.00988 add entry: host n1 dv table: {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": "n2", "dist": 2}, "4": {"next_hop": "n2", "dist": 2}, "7": {"next_hop": "n2", "dist": 3}}
+0.00988 host n1 update forwarding table (dest: 7, next hop: n2)
+0.00988 n1 dropping packet due to TTL expired
+0.00988 n3 received packet
+0.00988 host n3 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": "n3", "dist": 2}}}
+0.00988 n3 dropping packet due to TTL expired
+0.00988 n1 forwarding broadcast packet to n2
+0.010832 n3 received packet
+0.010832 host n3 received dv message: {"from": "n4", "dv_table": {"3": {"next_hop": "n3", "dist": 2}, "2": {"next_hop": "n3", "dist": 2}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}, "8": {"next_hop": "n5", "dist": 1}}}
+0.010832 n3 dropping packet due to TTL expired
+0.010832 n5 received packet
+0.010832 host n5 received dv message: {"from": "n4", "dv_table": {"3": {"next_hop": "n3", "dist": 2}, "2": {"next_hop": "n3", "dist": 2}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}, "8": {"next_hop": "n5", "dist": 1}}}
+0.010832 add entry: host n5 dv table: {"3": {"next_hop": "n4", "dist": 3}, "2": {"next_hop": "n4", "dist": 3}, "5": {"next_hop": "n4", "dist": 2}, "4": {"next_hop": "n4", "dist": 2}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": null, "dist": 0}}
+0.010832 host n5 update forwarding table (dest: 2, next hop: n4)
+0.010832 n5 dropping packet due to TTL expired
+0.010832 n5 forwarding broadcast packet to n4
+0.01112 n2 received packet
+0.01112 host n2 received dv message: {"from": "n3", "dv_table": {"1": {"next_hop": "n2", "dist": 2}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}}
+0.01112 n2 dropping packet due to TTL expired
+0.01112 n4 received packet
+0.01112 host n4 received dv message: {"from": "n3", "dv_table": {"1": {"next_hop": "n2", "dist": 2}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}}}
+0.01112 add entry: host n4 dv table: {"1": {"next_hop": "n3", "dist": 3}, "3": {"next_hop": "n3", "dist": 2}, "2": {"next_hop": "n3", "dist": 2}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}, "8": {"next_hop": "n5", "dist": 1}}
+0.01112 host n4 update forwarding table (dest: 1, next hop: n3)
+0.01112 n4 dropping packet due to TTL expired
+0.01112 n4 forwarding broadcast packet to n3
+0.01112 n4 forwarding broadcast packet to n5
+0.011544 n4 received packet
+0.011544 host n4 received dv message: {"from": "n5", "dv_table": {"3": {"next_hop": "n4", "dist": 3}, "5": {"next_hop": "n4", "dist": 2}, "4": {"next_hop": "n4", "dist": 2}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": null, "dist": 0}}}
+0.011544 n4 dropping packet due to TTL expired
+0.01212 n1 received packet
+0.01212 host n1 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": "n3", "dist": 2}, "6": {"next_hop": "n3", "dist": 2}}}
+0.01212 add entry: host n1 dv table: {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": "n2", "dist": 2}, "4": {"next_hop": "n2", "dist": 2}, "7": {"next_hop": "n2", "dist": 3}, "6": {"next_hop": "n2", "dist": 3}}
+0.01212 host n1 update forwarding table (dest: 6, next hop: n2)
+0.01212 n1 dropping packet due to TTL expired
+0.01212 n3 received packet
+0.01212 host n3 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": "n3", "dist": 2}, "6": {"next_hop": "n3", "dist": 2}}}
+0.01212 n3 dropping packet due to TTL expired
+0.01212 n1 forwarding broadcast packet to n2
+0.012832 n2 received packet
+0.012832 host n2 received dv message: {"from": "n1", "dv_table": {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": "n2", "dist": 2}, "4": {"next_hop": "n2", "dist": 2}, "7": {"next_hop": "n2", "dist": 3}}}
+0.012832 n2 dropping packet due to TTL expired
+0.013648 n2 received packet
+0.013648 host n2 received dv message: {"from": "n3", "dv_table": {"1": {"next_hop": "n2", "dist": 2}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": "n4", "dist": 2}}}
+0.013648 add entry: host n2 dv table: {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": "n3", "dist": 2}, "6": {"next_hop": "n3", "dist": 2}, "8": {"next_hop": "n3", "dist": 3}}
+0.013648 host n2 update forwarding table (dest: 8, next hop: n3)
+0.013648 n2 dropping packet due to TTL expired
+0.013648 n4 received packet
+0.013648 host n4 received dv message: {"from": "n3", "dv_table": {"1": {"next_hop": "n2", "dist": 2}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": "n4", "dist": 2}}}
+0.013648 n4 dropping packet due to TTL expired
+0.013648 n2 forwarding broadcast packet to n1
+0.013648 n2 forwarding broadcast packet to n3
+0.014072 n4 received packet
+0.014072 host n4 received dv message: {"from": "n5", "dv_table": {"3": {"next_hop": "n4", "dist": 3}, "2": {"next_hop": "n4", "dist": 3}, "5": {"next_hop": "n4", "dist": 2}, "4": {"next_hop": "n4", "dist": 2}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": null, "dist": 0}}}
+0.014072 n4 dropping packet due to TTL expired
+0.014648 n3 received packet
+0.014648 host n3 received dv message: {"from": "n4", "dv_table": {"1": {"next_hop": "n3", "dist": 3}, "3": {"next_hop": "n3", "dist": 2}, "2": {"next_hop": "n3", "dist": 2}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}, "8": {"next_hop": "n5", "dist": 1}}}
+0.014648 n3 dropping packet due to TTL expired
+0.014648 n5 received packet
+0.014648 host n5 received dv message: {"from": "n4", "dv_table": {"1": {"next_hop": "n3", "dist": 3}, "3": {"next_hop": "n3", "dist": 2}, "2": {"next_hop": "n3", "dist": 2}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}, "8": {"next_hop": "n5", "dist": 1}}}
+0.014648 add entry: host n5 dv table: {"1": {"next_hop": "n4", "dist": 4}, "3": {"next_hop": "n4", "dist": 3}, "2": {"next_hop": "n4", "dist": 3}, "5": {"next_hop": "n4", "dist": 2}, "4": {"next_hop": "n4", "dist": 2}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": null, "dist": 0}}
+0.014648 host n5 update forwarding table (dest: 1, next hop: n4)
+0.014648 n5 dropping packet due to TTL expired
+0.014648 n5 forwarding broadcast packet to n4
+0.01536 n2 received packet
+0.01536 host n2 received dv message: {"from": "n1", "dv_table": {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": "n2", "dist": 2}, "4": {"next_hop": "n2", "dist": 2}, "7": {"next_hop": "n2", "dist": 3}, "6": {"next_hop": "n2", "dist": 3}}}
+0.01536 n2 dropping packet due to TTL expired
+0.017176 n1 received packet
+0.017176 host n1 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": "n3", "dist": 2}, "6": {"next_hop": "n3", "dist": 2}, "8": {"next_hop": "n3", "dist": 3}}}
+0.017176 add entry: host n1 dv table: {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": "n2", "dist": 2}, "4": {"next_hop": "n2", "dist": 2}, "7": {"next_hop": "n2", "dist": 3}, "6": {"next_hop": "n2", "dist": 3}, "8": {"next_hop": "n2", "dist": 4}}
+0.017176 host n1 update forwarding table (dest: 8, next hop: n2)
+0.017176 n1 dropping packet due to TTL expired
+0.017176 n3 received packet
+0.017176 host n3 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": "n3", "dist": 2}, "6": {"next_hop": "n3", "dist": 2}, "8": {"next_hop": "n3", "dist": 3}}}
+0.017176 n3 dropping packet due to TTL expired
+0.017176 n1 forwarding broadcast packet to n2
+0.018176 n4 received packet
+0.018176 host n4 received dv message: {"from": "n5", "dv_table": {"1": {"next_hop": "n4", "dist": 4}, "3": {"next_hop": "n4", "dist": 3}, "2": {"next_hop": "n4", "dist": 3}, "5": {"next_hop": "n4", "dist": 2}, "4": {"next_hop": "n4", "dist": 2}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": null, "dist": 0}}}
+0.018176 n4 dropping packet due to TTL expired
+0.020704 n2 received packet
+0.020704 host n2 received dv message: {"from": "n1", "dv_table": {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": "n2", "dist": 2}, "4": {"next_hop": "n2", "dist": 2}, "7": {"next_hop": "n2", "dist": 3}, "6": {"next_hop": "n2", "dist": 3}, "8": {"next_hop": "n2", "dist": 4}}}
+0.020704 n2 dropping packet due to TTL expired
+1.0 n1 forwarding packet to 8
+1.001104 n2 forwarding packet to 8
+1.002208 n3 forwarding packet to 8
+1.003312 n4 forwarding packet to 8
+1.004416 n5 received packet
+1.004416 host n5 received data: Hello, world!
+2.0 n2 forwarding packet to 6
+2.001104 n3 forwarding packet to 6
+2.002208 n4 received packet
+2.002208 host n4 received data: Hello, world!
+5.0 n1 forwarding broadcast packet to n2
+5.0 n2 forwarding broadcast packet to n1
+5.0 n2 forwarding broadcast packet to n3
+5.0 n3 forwarding broadcast packet to n2
+5.0 n3 forwarding broadcast packet to n4
+5.0 n4 forwarding broadcast packet to n3
+5.0 n4 forwarding broadcast packet to n5
+5.0 n5 forwarding broadcast packet to n4
+5.003528 n2 received packet
+5.003528 host n2 received dv message: {"from": "n1", "dv_table": {"1": {"next_hop": null, "dist": 0}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": "n2", "dist": 2}, "4": {"next_hop": "n2", "dist": 2}, "7": {"next_hop": "n2", "dist": 3}, "6": {"next_hop": "n2", "dist": 3}, "8": {"next_hop": "n2", "dist": 4}}}
+5.003528 n2 dropping packet due to TTL expired
+5.003528 n1 received packet
+5.003528 host n1 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": "n3", "dist": 2}, "6": {"next_hop": "n3", "dist": 2}, "8": {"next_hop": "n3", "dist": 3}}}
+5.003528 n1 dropping packet due to TTL expired
+5.003528 n3 received packet
+5.003528 host n3 received dv message: {"from": "n2", "dv_table": {"1": {"next_hop": "n1", "dist": 1}, "3": {"next_hop": null, "dist": 0}, "2": {"next_hop": null, "dist": 0}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": "n3", "dist": 2}, "6": {"next_hop": "n3", "dist": 2}, "8": {"next_hop": "n3", "dist": 3}}}
+5.003528 n3 dropping packet due to TTL expired
+5.003528 n2 received packet
+5.003528 host n2 received dv message: {"from": "n3", "dv_table": {"1": {"next_hop": "n2", "dist": 2}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": "n4", "dist": 2}}}
+5.003528 n2 dropping packet due to TTL expired
+5.003528 n4 received packet
+5.003528 host n4 received dv message: {"from": "n3", "dv_table": {"1": {"next_hop": "n2", "dist": 2}, "3": {"next_hop": "n2", "dist": 1}, "2": {"next_hop": "n2", "dist": 1}, "5": {"next_hop": null, "dist": 0}, "4": {"next_hop": null, "dist": 0}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": "n4", "dist": 2}}}
+5.003528 n4 dropping packet due to TTL expired
+5.003528 n3 received packet
+5.003528 host n3 received dv message: {"from": "n4", "dv_table": {"1": {"next_hop": "n3", "dist": 3}, "3": {"next_hop": "n3", "dist": 2}, "2": {"next_hop": "n3", "dist": 2}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}, "8": {"next_hop": "n5", "dist": 1}}}
+5.003528 n3 dropping packet due to TTL expired
+5.003528 n5 received packet
+5.003528 host n5 received dv message: {"from": "n4", "dv_table": {"1": {"next_hop": "n3", "dist": 3}, "3": {"next_hop": "n3", "dist": 2}, "2": {"next_hop": "n3", "dist": 2}, "5": {"next_hop": "n3", "dist": 1}, "4": {"next_hop": "n3", "dist": 1}, "7": {"next_hop": null, "dist": 0}, "6": {"next_hop": null, "dist": 0}, "8": {"next_hop": "n5", "dist": 1}}}
+5.003528 n5 dropping packet due to TTL expired
+5.003528 n4 received packet
+5.003528 host n4 received dv message: {"from": "n5", "dv_table": {"1": {"next_hop": "n4", "dist": 4}, "3": {"next_hop": "n4", "dist": 3}, "2": {"next_hop": "n4", "dist": 3}, "5": {"next_hop": "n4", "dist": 2}, "4": {"next_hop": "n4", "dist": 2}, "7": {"next_hop": "n4", "dist": 1}, "6": {"next_hop": "n4", "dist": 1}, "8": {"next_hop": null, "dist": 0}}}
+5.003528 n4 dropping packet due to TTL expired
+6.0 n5 forwarding packet to 5
+6.001104 n4 forwarding packet to 5
+6.002208 n3 received packet
+6.002208 host n3 received data: Hello, world!

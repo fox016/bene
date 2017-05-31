@@ -1,0 +1,103 @@
+13c13
+< 		destination_address,destination_port,app=None):
+---
+> 		destination_address,destination_port,app=None,window=3000):
+16c16,17
+< 			", destination =", destination_address, ")"
+---
+> 			", destination =", destination_address, ", window =", \
+> 			window, ")"
+21,22d21
+< 		Sim.set_debug("Link")
+< 
+24a24,26
+> 		# send window; represents the total number of bytes that may
+> 		# be outstanding at one time
+> 		self.window = window
+32,39d33
+< 		# send window; represents the total number of bytes that may
+< 		# be outstanding at one time
+< 		self.cwnd = self.mss
+< 		print "CWND init", self.cwnd
+< 		# slow start threshold; represents the window size at which slow
+< 		# start stops and additive increase begins
+< 		self.ssthresh = 100000
+< 		print "SSTHRESH init", self.ssthresh
+44,45d37
+< 		# ACK counter
+< 		self.ack_count = 0
+56,57c48
+< 		### Other
+< 		self.plot_file = open("sequence_plot_data.txt", "w");
+---
+> 		self.queue_file = open("queue_delay.txt", "w")
+84c75
+< 		(self.send_buffer.outstanding() + self.mss <= self.cwnd):
+---
+> 		(self.send_buffer.outstanding() + self.mss <= self.window):
+103a95,96
+> 		self.queue_file.write(str(Sim.scheduler.current_time()) + "\n")
+> 
+110,112d102
+< 		# Record sequence plot data
+< 		self.plot_file.write("D,%f,%d\n" % (Sim.scheduler.current_time(), (sequence/1000)))
+< 
+121c111
+< 		self.trace("%s (%d) received TCP ACK from %d for %d" % \
+---
+> 		self.trace("%s (%d) received TCP ack from %d for %d" % \
+125,127d114
+< 		# Record sequence plot data
+< 		self.plot_file.write("A,%f,%d\n" % (Sim.scheduler.current_time(), (packet.ack_number/1000)))
+< 
+140,149d126
+< 			# Update congestion window
+< 			self.ack_count = 0
+< 			new_bytes = self.mss
+< 			if self.cwnd < self.ssthresh:
+< 				print "CWND new ack slow start", self.cwnd
+< 				self.cwnd += new_bytes
+< 			else:
+< 				print "CWND new ack AIMD", self.cwnd
+< 				self.cwnd += self.mss * new_bytes / self.cwnd
+< 
+160,171c137,138
+< 			# Send available data
+< 			self.send_available()
+< 
+< 		# If repeat ACK
+< 		elif packet.ack_number == self.sequence:
+< 			self.ack_count += 1
+< 			if self.ack_count == 3: # 3 dup => retransmit
+< 				self.trace("3 duplicate ACKs (ACK# %d)" % packet.ack_number)
+< 				self.do_retransmit()
+< 			#if self.ack_count > 3: # Extra dup => increase window
+< 				#self.cwnd += self.mss
+< 				#print "CWND +3 dup ack", self.cwnd
+---
+> 		# Send available data
+> 		self.send_available()
+186,196d152
+< 		# Retransmit
+< 		self.do_retransmit()
+< 
+< 	def do_retransmit(self):
+< 
+< 		# Set ssthresh and cwnd
+< 		self.ssthresh = max(self.cwnd/2, self.mss)
+< 		self.cwnd = self.mss
+< 		print "CWND retransmit", self.cwnd
+< 		print "SSTHRESH retransmit", self.ssthresh
+< 
+199,203c155,156
+< 		if len(tcp_packet) == 0:
+< 			self.cancel_timer()
+< 		else:
+< 			self.send_packet(tcp_packet, start_sequence)
+< 	
+---
+> 		self.send_packet(tcp_packet, start_sequence)
+> 
+219a173,174
+> 
+> 		print "QUEUEING DELAY", packet.queueing_delay

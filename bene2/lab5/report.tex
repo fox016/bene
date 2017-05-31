@@ -1,0 +1,342 @@
+\documentclass[11pt]{article}
+
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\setlength{\parindent}{1.4em}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\lstset{
+  language=Python,
+  basicstyle=\small,          % print whole listing small
+  keywordstyle=\bfseries,
+  identifierstyle=,           % nothing happens
+  commentstyle=,              % white comments
+  stringstyle=\ttfamily,      % typewriter type for strings
+  showstringspaces=false,     % no special string spaces
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  frame=tb,
+}
+
+\title{Lab 5 Report}
+
+\author{Nate Fox}
+
+\date{}
+
+\maketitle
+
+\section{Routing Protocol}
+
+\section{Experiments}
+
+\subsection{Line of 5 Nodes}
+To run this experiment, use the following command: \code{python line\_five\_exp.py}. The network has five nodes (n1 through n5) that are connected in a line, with a total of 8 links. The experiment sends three data packets with the message ``Hello, world!'':
+\begin{itemize}
+	\item n1 to n5 at t = 1 s
+	\item n2 to n4 at t = 2 s
+	\item n5 to n3 at t = 6 s
+\end{itemize}
+
+The script runs with a \code{--runtime} default of 10 and a \code{--dvfrequency} default of 5. This means that each node will broadcast its distance vector every 5 seconds, so a link failure will be detected if no update is heard within 15 seconds. The program will terminate after 10 seconds.
+
+The first thing the output shows is that each node's distance vector table initially includes information on only itself. The distance vector table is represented as a hash table mapping a link address (Bene's version of an IP address) to a next hop (node) and a distance:
+
+\begin{lstlisting}
+0 add entry: host n1 dv table:
+	{"1": {"next_hop": null, "dist": 0}}
+0 add entry: host n2 dv table:
+	{"3": {"next_hop": null, "dist": 0},
+	"2": {"next_hop": null, "dist": 0}}
+0 add entry: host n3 dv table:
+	{"5": {"next_hop": null, "dist": 0},
+	"4": {"next_hop": null, "dist": 0}}
+0 add entry: host n4 dv table:
+	{"7": {"next_hop": null, "dist": 0},
+	"6": {"next_hop": null, "dist": 0}}
+0 add entry: host n5 dv table:
+	{"8": {"next_hop": null, "dist": 0}}
+\end{lstlisting}
+
+Immediately, each node broadcasts its distance vector table to its immediate neighbors. When its neighbors receive the updates, they update their distance vector tables, and if their distance vector tables were modified then they in turn broadcast the new updates. The output shows how each node's distance vector table changes over time. Here is n1's distance vector table over time:
+
+\begin{lstlisting}
+0 add entry: host n1 dv table:
+	{"1": {"next_hop": null, "dist": 0}}
+0.0018 add entry: host n1 dv table:
+	{"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1}}
+0.0018 add entry: host n1 dv table:
+	{"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": "n2", "dist": 1}}
+0.004976 add entry: host n1 dv table:
+	{"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": "n2", "dist": 1},
+	"5": {"next_hop": "n2", "dist": 2}}
+0.00664 add entry: host n1 dv table:
+	{"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": "n2", "dist": 1},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 2}}
+0.00988 add entry: host n1 dv table:
+	{"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": "n2", "dist": 1},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 2},
+	"7": {"next_hop": "n2", "dist": 3}}
+0.01212 add entry: host n1 dv table:
+	{"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": "n2", "dist": 1},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 2},
+	"7": {"next_hop": "n2", "dist": 3},
+	"6": {"next_hop": "n2", "dist": 3}}
+0.017176 add entry: host n1 dv table:
+	{"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": "n2", "dist": 1},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 2},
+	"7": {"next_hop": "n2", "dist": 3},
+	"6": {"next_hop": "n2", "dist": 3},
+	"8": {"next_hop": "n2", "dist": 4}}
+\end{lstlisting}
+
+Within the first 0.02 seconds, all of the nodes have complete distance vector tables and they stop broadcasting distance vector information. At t = 1 s, the first packet is sent from n1 to n5:
+
+\begin{lstlisting}
+1.0 n1 forwarding packet to 8
+1.001104 n2 forwarding packet to 8
+1.002208 n3 forwarding packet to 8
+1.003312 n4 forwarding packet to 8
+1.004416 n5 received packet
+1.004416 host n5 received data: Hello, world!
+\end{lstlisting}
+
+At t = 2 s, the second packet is sent from n2 to n4:
+
+\begin{lstlisting}
+2.0 n2 forwarding packet to 6
+2.001104 n3 forwarding packet to 6
+2.002208 n4 received packet
+2.002208 host n4 received data: Hello, world!
+\end{lstlisting}
+
+At t = 5 s, the nodes all broadcast their distance vector tables to each other, but no updates are made because the network hasn't changed. At t = 6 s, the final packet is sent from n5 to n3:
+
+\begin{lstlisting}
+6.0 n5 forwarding packet to 5
+6.001104 n4 forwarding packet to 5
+6.002208 n3 received packet
+6.002208 host n3 received data: Hello, world!
+\end{lstlisting}
+
+\subsection{Ring of 5 Nodes}
+To run this experiment, use the following command: \code{python ring\_five\_exp.py}. The network has five nodes that are connected in a ring, where each node is connected to exactly two neighbors. The experiment performs the following:
+\begin{itemize}
+	\item send packet from n1 to n5 at t = 1 s
+	\item send packet from n2 to n4 at t = 2 s
+	\item send packet from n5 to n3 at t = 3 s
+	\item bring down links between n1 and n5 at t = 4 s
+	\item send packet from n1 to n5 at t = 24 s
+	\item bring up links between n1 and n5 at t = 29 s
+	\item send packet from n1 to n5 at t = 31 s
+\end{itemize}
+
+The script runs with a \code{--runtime} default of 32 and a \code{--dvfrequency} default of 5. In less than 0.009 seconds, n1 has a complete distance vector table:
+
+\begin{lstlisting}
+0.008912 add entry: host n1 dv table:
+	{"10": {"next_hop": "n5", "dist": 1},
+	"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": null, "dist": 0},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 1},
+	"7": {"next_hop": "n5", "dist": 2},
+	"6": {"next_hop": "n2", "dist": 2},
+	"9": {"next_hop": "n5", "dist": 1},
+	"8": {"next_hop": "n5", "dist": 2}}
+\end{lstlisting}
+
+The first 3 packets get sent without difficulty. Notice that the packet from n1 to n5 now can go directly to n5:
+
+\begin{lstlisting}
+1.0 n1 forwarding packet to 9
+1.001104 n5 received packet
+1.001104 host n5 received data: Hello, world!
+2.0 n2 forwarding packet to 7
+2.001104 n3 forwarding packet to 7
+2.002208 n4 received packet
+2.002208 host n4 received data: Hello, world!
+3.0 n5 forwarding packet to 6
+3.001104 n4 forwarding packet to 6
+3.002208 n3 received packet
+3.002208 host n3 received data: Hello, world!
+\end{lstlisting}
+
+At t = 4 s, the links between n1 and n5 go down. At t = 5 s, n1 gets updates from its neighbor n2, but not n5. The same thing happens at t = 10 s and t = 15 s. Since n1 has not heard from n5 after 3 updates, n1 detects that the link has failed. During the next round of updates at t = 20 s, n1 learns about the new route it has to take to get to n4 (link address 7 and 8) and n5 (link address 9 and 10):
+
+\begin{lstlisting}
+15.019632 host n1 detected failed link to host n5
+20.004112 add entry: host n1 dv table:
+	{"10": {"next_hop": "n2", "dist": 3},
+	"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": null, "dist": 0},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 1},
+	"7": {"next_hop": "n5", "dist": 2},
+	"6": {"next_hop": "n2", "dist": 2},
+	"9": {"next_hop": "n5", "dist": 1},
+	"8": {"next_hop": "n5", "dist": 2}}
+20.004112 host n1 update forwarding table (dest: 10, next hop: n2)
+20.004112 add entry: host n1 dv table:
+	{"10": {"next_hop": "n2", "dist": 3},
+	"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": null, "dist": 0},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 1},
+	"7": {"next_hop": "n2", "dist": 3},
+	"6": {"next_hop": "n2", "dist": 2},
+	"9": {"next_hop": "n5", "dist": 1},
+	"8": {"next_hop": "n5", "dist": 2}}
+20.004112 host n1 update forwarding table (dest: 7, next hop: n2)
+20.004112 add entry: host n1 dv table:
+	{"10": {"next_hop": "n2", "dist": 3},
+	"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": null, "dist": 0},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 1},
+	"7": {"next_hop": "n2", "dist": 3},
+	"6": {"next_hop": "n2", "dist": 2},
+	"9": {"next_hop": "n2", "dist": 3},
+	"8": {"next_hop": "n5", "dist": 2}}
+20.004112 host n1 update forwarding table (dest: 9, next hop: n2)
+20.004112 add entry: host n1 dv table:
+	{"10": {"next_hop": "n2", "dist": 3},
+	"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": null, "dist": 0},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 1},
+	"7": {"next_hop": "n2", "dist": 3},
+	"6": {"next_hop": "n2", "dist": 2},
+	"9": {"next_hop": "n2", "dist": 3},
+	"8": {"next_hop": "n2", "dist": 3}}
+20.004112 host n1 update forwarding table (dest: 8, next hop: n2)
+20.012336 add entry: host n1 dv table:
+	{"10": {"next_hop": "n2", "dist": 4},
+	"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": null, "dist": 0},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 1},
+	"7": {"next_hop": "n2", "dist": 3},
+	"6": {"next_hop": "n2", "dist": 2},
+	"9": {"next_hop": "n2", "dist": 3},
+	"8": {"next_hop": "n2", "dist": 3}}
+20.01856 add entry: host n1 dv table:
+	{"10": {"next_hop": "n2", "dist": 4},
+	"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": null, "dist": 0},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 1},
+	"7": {"next_hop": "n2", "dist": 3},
+	"6": {"next_hop": "n2", "dist": 2},
+	"9": {"next_hop": "n2", "dist": 4},
+	"8": {"next_hop": "n2", "dist": 3}}
+\end{lstlisting}
+
+At t = 24 s, the next packet is sent from n1 to n5 and takes the new route:
+
+\begin{lstlisting}
+24.0 n1 forwarding packet to 9
+24.001104 n2 forwarding packet to 9
+24.002208 n3 forwarding packet to 9
+24.003312 n4 forwarding packet to 9
+24.004416 n5 received packet
+24.004416 host n5 received data: Hello, world!
+\end{lstlisting}
+
+At t = 29 s, the links between n1 and n5 are brought back up, and n1 gets an update at t = 30 s:
+
+\begin{lstlisting}
+30.004112 add entry: host n1 dv table:
+	{"10": {"next_hop": "n5", "dist": 1},
+	"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": null, "dist": 0},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 1},
+	"7": {"next_hop": "n2", "dist": 3},
+	"6": {"next_hop": "n2", "dist": 2},
+	"9": {"next_hop": "n2", "dist": 4},
+	"8": {"next_hop": "n2", "dist": 3}}
+30.004112 host n1 update forwarding table (dest: 10, next hop: n5)
+30.004112 add entry: host n1 dv table:
+	{"10": {"next_hop": "n5", "dist": 1},
+	"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": null, "dist": 0},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 1},
+	"7": {"next_hop": "n5", "dist": 2},
+	"6": {"next_hop": "n2", "dist": 2},
+	"9": {"next_hop": "n2", "dist": 4},
+	"8": {"next_hop": "n2", "dist": 3}}
+30.004112 host n1 update forwarding table (dest: 7, next hop: n5)
+30.004112 add entry: host n1 dv table:
+	{"10": {"next_hop": "n5", "dist": 1},
+	"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": null, "dist": 0},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 1},
+	"7": {"next_hop": "n5", "dist": 2},
+	"6": {"next_hop": "n2", "dist": 2},
+	"9": {"next_hop": "n5", "dist": 1},
+	"8": {"next_hop": "n2", "dist": 3}}
+30.004112 host n1 update forwarding table (dest: 9, next hop: n5)
+30.004112 add entry: host n1 dv table:
+	{"10": {"next_hop": "n5", "dist": 1},
+	"1": {"next_hop": null, "dist": 0},
+	"3": {"next_hop": "n2", "dist": 1},
+	"2": {"next_hop": null, "dist": 0},
+	"5": {"next_hop": "n2", "dist": 2},
+	"4": {"next_hop": "n2", "dist": 1},
+	"7": {"next_hop": "n5", "dist": 2},
+	"6": {"next_hop": "n2", "dist": 2},
+	"9": {"next_hop": "n5", "dist": 1},
+	"8": {"next_hop": "n5", "dist": 2}}
+30.004112 host n1 update forwarding table (dest: 8, next hop: n5)
+\end{lstlisting}
+
+At t = 31 s, a packet is again sent from n1 to n5, and this time it takes the new, more direct route:
+
+\begin{lstlisting}
+31.0 n1 forwarding packet to 9
+31.001104 n5 received packet
+31.001104 host n5 received data: Hello, world!
+\end{lstlisting}
+
+\subsection{Mesh of 15 Nodes}
+
+\subsection{Counting-to-Infinity Problem}
+
+\end{document}
