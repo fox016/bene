@@ -1,0 +1,81 @@
+Nathan Fox
+CS 460
+April 9, 2015
+
+Wireless and Mobile Homework (Chapter 6)
+
+1) P5
+
+a. If two APs associated with two different ISPs both want to transmit over the same channel at the same time, the following process may occur:
+	1. Each AP senses that the channel is idle, so each AP waits for a short time (DIFS) and transmits its entire frame
+	2. The two frames collide, so neither AP receives an ACK from the destination
+	3. Each AP retransmits a certain number of times before giving up
+	4. Each AP chooses a random backoff value and counts down when it senses that the channel is idle
+	5. The AP that chooses the smaller backoff value (AP #1) counts down to 0 first, and it transmits its entire frame
+	6. The other AP (AP #2) senses that the channel is busy, so its counter remains frozen
+	7. AP #1 receives an ACK from the destination and again chooses a random backoff value before transmitting another frame
+	8. AP #2 now senses that the channel is free, so it counts down to 0 and transmits its entire frame
+	9. AP #1 senses that the channel is busy, so its counter remains frozen
+	10. AP #2 receives an ACK from the destination and again chooses a random backoff value before transmitting another frame
+
+b. If one AP is on channel 1 and the other is on channel 11, then the channels will not overlap (they are separated by more than 4 channels) and collisions won't occur. Each AP will send its entire frame and receive an ACK from the destination.
+
+2) P7
+
+I will assume the following values:
+
+RTS frame size = 20 bytes (160 bits)
+CTS frame size = 14 bytes (112 bits)
+ACK frame size = 14 bytes (112 bits)
+Bandwidth = 2 Mbps (2E6 bps)
+
+Time(DIFS, SIFS) = DIFS + d_trans(RTS) + SIFS + d_trans(CTS) + SIFS + d_trans(data) + SIFS + d_trans(ACK)
+Time(DIFS, SIFS) = 3*SIFS + DIFS + (160/2E6) + (112/2E6) + (8000/2E6) + (112/2E6)
+Time(DIFS, SIFS) = 3*SIFS + DIFS + (160/2E6) + (112/2E6) + (8000/2E6) + (112/2E6)
+Time(DIFS, SIFS) = 3*SIFS + DIFS + (8384/2E6)
+
+3) P8
+
+a. 4 time slots: 1 for C to send, 1 for B to receive, 1 for B to send, 1 for A to receive
+
+b. 2 time slots: 1 for A/D to send, 1 for B/C to receive
+
+c. 3 time slots: 1 for A to send, 1 for B to receive while C sends, 1 for D to receive
+
+d. a) 4 time slots: 1 for C to send, 1 for B to receive, 1 for B to send, 1 for A to receive
+   b) 2 time slots: 1 for A/D to send, 1 for B/C to receive
+   c) 2 time slots: 1 for A/C to send, 1 for B/D to receive
+
+e. a) 8 time slots: 1 for C to send data, 1 for B to receive data, 1 for B to send data, 1 for A to receive data, 1 for A to send ACK, 1 for B to receive ACK, 1 for B to send ACK, 1 for C to receive ACK
+   b) 5 time slots: 1 for A/D to send data, 1 for B/C to receive data, 1 for C to send ACK, 1 for D to receive ACK while B sends ACK, 1 for A to receive ACK
+   c) 5 time slots: 1 for A to send data, 1 for B to receive data while C sends data, 1 for D to receive data while B sends ACK, 1 for A to receive ACK while D sends ACK, 1 for C to receive ACK
+
+4) P10
+
+a. The base station can constantly send data on all frequencies to node A to get a maximum of 10 Mbps. The solution is not fair in that nodes B, C, and D never receive any data.
+
+b. 2.5 Mbps
+
+In order to get the same amount of data to all nodes over a one-second interval, divide the interval into 16 segments and use the following schedule:
+A - 1  segment  - (1/16)*10E6  = 78,125 bytes
+B - 2  segments - (2/16)*5E6   = 78,125 bytes
+C - 4  segments - (4/16)*2.5E6 = 78,125 bytes
+D - 10 segments - (10/16)*1E6  = 78,125 bytes
+
+The station sends a total of 312,500 bytes over the one-second interval, or 2.5 Mbps
+
+c. 2.9 Mbps
+
+To meet this fairness criterion, divide the interval into 12 segments and use the following schedule:
+A - 1 segment  - (1/12)*10E6  = 833,333 bits
+B - 2 segments - (2/12)*5E6   = 833,333 bits
+C - 4 segments - (4/12)*2.5E6 = 833,333 bits
+D - 5 segments - (5/12)*1E6   = 416,667 bits
+
+The station sends a total of 2,916,666 bits over the one-second interval, or 2.9 Mbps
+
+5) P11
+
+a. No, for a while some routers will still have routing information pointing to the route advertised by the old foreign network.
+b. Yes. Routers closer to the new foreign network will quickly learn the new route, but routers closer to the old foreign network may be stuck in a count-to-infinity loop until their erroneous, ever-increasing cost is greater than the cost of the new route.
+c. It could take a long time for routers closer to the old foreign network to update their forwarding tables to the new route. These routers may be stuck in a count-to-inifinity loop, believing that there is a better path going into the old foreign network. The cost of the supposed path into the old foreign network will keep counting up, and eventually the cost of the advertised new route will be less than the ever-increasing cost of the supposed path into the old foreign network.
